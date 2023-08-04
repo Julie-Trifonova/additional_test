@@ -1,10 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 function App() {
     const [isRunning, setIsRunning] = useState(false)
     const [timer, setTimer] = useState('00:00:00');
     const [currentTotalSeconds, setCurrentTotalSeconds] = useState(0);
-    const createTimerAnimator = (totalSeconds: any) => {
+    const createTimerAnimator = (totalSeconds: number) => {
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
@@ -18,10 +18,10 @@ function App() {
         }
     }
 
-    const onChangeInput = (e: any) => {
-        const totalSeconds = e.target.value.replace(/\D/g, '');
+    const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const totalSeconds = Number(e.target.value.replace(/\D/g, ''));
         if (totalSeconds < 86400) {
-            e.target.value = totalSeconds;
+            e.target.value = totalSeconds.toString();
             setCurrentTotalSeconds(totalSeconds);
             createTimerAnimator(totalSeconds)
         } else {
