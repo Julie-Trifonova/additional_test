@@ -1,8 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 
 function App() {
-
-    const Ref = useRef(null);
+    const interval = useRef();
     const [isRunning, setIsRunning] = useState(false)
     const [timer, setTimer] = useState('00:00:00');
     const [currentTotalSeconds, setCurrentTotalSeconds] = useState(0);
@@ -33,24 +32,21 @@ function App() {
 
     useEffect(() => {
         if (isRunning) {
-            const interval = setInterval(() => {
+            // @ts-ignore
+            interval.current = setInterval(() => {
+                if (currentTotalSeconds === 1) {
+                    setIsRunning(false)
+                    setTimer('00:00:00')
+                }
                 const newTotalSeconds = currentTotalSeconds - 1;
                 createTimerAnimator(newTotalSeconds);
                 setCurrentTotalSeconds(newTotalSeconds);
                 console.log(newTotalSeconds)
             }, 1000)
-            if (currentTotalSeconds === 0) {
-                setIsRunning(false)
-                setTimer('00:00:00')
-                clearInterval(interval)
+            return () => clearInterval(interval.current)
             }
-            // return () => clearInterval(interval)
-        }
-    }, [isRunning, timer])
 
-    // useEffect(() => {
-    //     setResetTime(timer)
-    // }, [])
+        }, [isRunning, timer])
 
     return (
         <div className="App">
