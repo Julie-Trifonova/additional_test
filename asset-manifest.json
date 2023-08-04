@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/additional_test/static/js/main.defe966e.js",
+    "index.html": "/additional_test/index.html",
+    "main.defe966e.js.map": "/additional_test/static/js/main.defe966e.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.defe966e.js"
+  ]
+}
